@@ -4,7 +4,7 @@
 // @match       https://github.com/quoid/userscripts
 // @exclude-match: *://*.*
 // @version 1.1
-// @updateURL https://www.k21p.com/example.user.js
+// @updateURL https://seweso.github.io/scripts/festify.js
 // @grant GM.setValue
 // @grant GM.getValue
 // @require https://code.jquery.com/jquery-1.12.4.min.js
