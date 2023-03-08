@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name        Example JS Userscript
-// @description This a standard userscript with javascript code
+// @name        Festify script
+// @description This enables you to vote multiple times 
 // @match       https://github.com/quoid/userscripts
 // @exclude-match: *://*.*
 // @version 1.1
@@ -11,3 +11,4 @@
 // ==/UserScript==
 
 console.log("I was updated!");
+alert("Test 2");
