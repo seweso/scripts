@@ -10,7 +10,7 @@
 
 /*
 
-Only respond to prompts with javascript code in between {exec}{/exec} tags, do not use code blocks. 
+Only respond to prompts with one block of javascript code in between {exec}{/exec} tags at the end of your reply, do not use code blocks.
 
 First prompt is: Show a funny quote in an alert box. 
 
@@ -77,7 +77,7 @@ function sendPromptToChatGpt(text) {
         button.click();
       }
     }
-  }, 500);
+  }, 1500);
 }
 
 // Handle errors caught by try/catch
