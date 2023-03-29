@@ -4,6 +4,7 @@
 // @match       https://chat.openai.com/*
 // @exclude-match: *://*.*
 // @version 1.1
+// @updateURL https://seweso.github.io/scripts/chatgpt-exec.js
 // ==/UserScript==
 
 
