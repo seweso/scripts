@@ -59,11 +59,11 @@ function onButtonStateChanged() {
     console.log('Content is ready.');
 
     // Find the last occurrence of {exec} and {/exec}
-    const execStart = document.body.innerHTML.lastIndexOf('{exec}');
-    const execEnd = document.body.innerHTML.lastIndexOf('{/exec}');
+    const execStart = document.body.innerText.lastIndexOf('{exec}');
+    const execEnd = document.body.innerText.lastIndexOf('{/exec}');
     if (execStart !== -1 && execEnd !== -1 && execEnd > execStart) {
       // Extract the text between the last occurrence of {exec} and {/exec}
-      const execText = document.body.innerHTML.substring(execStart + 6, execEnd);      
+      const execText = document.body.innerText.substring(execStart + 6, execEnd);      
       if (!executedCodeSnippets.has(execText)) {
         console.log(`Text between {exec} and {/exec}: ${execText}`);
         executedCodeSnippets.add(execText);
