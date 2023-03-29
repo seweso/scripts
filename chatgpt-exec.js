@@ -37,8 +37,12 @@ function checkExecTags(node) {
       const execText = match.replace(/\{exec\}([\s\S]*?)\{\/exec\}/g, '$1');
       if (!executedCodeSnippets.has(execText)) {
         console.log(execText);
-        eval(execText);
-        executedCodeSnippets.add(execText);
+        try {
+          eval(execText);
+          executedCodeSnippets.add(execText);
+        } catch (error) {
+          handleError(error);
+        }
       }
     });
   }
@@ -61,3 +65,23 @@ function callback(mutationsList, observer) {
 
 // Start observing the target node for configured mutations
 observer.observe(targetNode, config);
+
+// Wait for 500 milliseconds and set the text of the first textarea, then click the next sibling button
+function setTextAndClickButton(text) {
+  setTimeout(() => {
+    const textarea = document.querySelector('textarea');
+    if (textarea) {
+      textarea.value = text;
+      const button = textarea.nextElementSibling;
+      if (button.tagName.toLowerCase() === 'button') {
+        button.click();
+      }
+    }
+  }, 500);
+}
+
+// Handle errors caught by try/catch
+function handleError(error) {
+  console.error(error);
+  setTextAndClickButton(`Error occurred: ${error.message}`);
+}
