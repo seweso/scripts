@@ -23,6 +23,9 @@ const lastTextarea = textareas[textareas.length - 1];
 // Get the button element based on the last textarea and its next sibling
 const button = lastTextarea.nextElementSibling;
 
+// Set to keep track of executed code snippets
+const executedCodeSnippets = new Set();
+
 // Send the given prompt text to ChatGPT by setting it as the value of the first textarea and clicking the next sibling button
 function sendPromptToChatGpt(text) {
   setTimeout(() => {
@@ -56,12 +59,15 @@ function onButtonStateChanged() {
     const execEnd = document.body.innerHTML.lastIndexOf('{/exec}');
     if (execStart !== -1 && execEnd !== -1 && execEnd > execStart) {
       // Extract the text between the last occurrence of {exec} and {/exec}
-      const execText = document.body.innerHTML.substring(execStart + 6, execEnd);
-      console.log(`Text between {exec} and {/exec}: ${execText}`);
-      try {
-        eval(execText);
-      } catch (error) {
-        handleError(error);
+      const execText = document.body.innerHTML.substring(execStart + 6, execEnd);      
+      if (!executedCodeSnippets.has(execText)) {
+        console.log(`Text between {exec} and {/exec}: ${execText}`);
+        executedCodeSnippets.add(execText);
+        try {
+          eval(execText);
+        } catch (error) {
+          handleError(error);
+        }
       }
     } else {
       console.log('No {exec} block found.');
