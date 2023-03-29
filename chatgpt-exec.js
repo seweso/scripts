@@ -85,3 +85,40 @@ function handleError(error) {
   console.error(error);
   sendPromptToChatGpt(`Error occurred: ${error.message}`);
 }
+
+
+// Function to check if the button is in the "ready" state
+function isButtonReady(button) {
+  return button.querySelector('svg') !== null;
+}
+
+// Function to handle button state changes
+function onButtonStateChanged(button) {
+  if (isButtonReady(button)) {
+    console.log('Content is ready.');
+  } else {
+    console.log('Content is still loading.');
+  }
+}
+
+// Find the last textarea on the page
+const textareas = document.querySelectorAll('textarea');
+const lastTextarea = textareas[textareas.length - 1];
+
+// Get the button element based on the last textarea and its next sibling
+const button = lastTextarea.nextElementSibling;
+
+// Create a MutationObserver to watch for changes to the button's content
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.type === 'childList') {
+      onButtonStateChanged(button);
+    }
+  });
+});
+
+// Start observing the button for content changes
+observer.observe(button, { childList: true });
+
+// Check the initial state of the button
+onButtonStateChanged(button);
