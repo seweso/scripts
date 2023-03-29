@@ -37,9 +37,9 @@ function checkExecTags(node) {
       const execText = match.replace(/\{exec\}([\s\S]*?)\{\/exec\}/g, '$1');
       if (!executedCodeSnippets.has(execText)) {
         console.log(execText);
+        executedCodeSnippets.add(execText);
         try {
           eval(execText);
-          executedCodeSnippets.add(execText);
         } catch (error) {
           handleError(error);
         }
@@ -66,8 +66,8 @@ function callback(mutationsList, observer) {
 // Start observing the target node for configured mutations
 observer.observe(targetNode, config);
 
-// Wait for 500 milliseconds and set the text of the first textarea, then click the next sibling button
-function setTextAndClickButton(text) {
+// Send the given prompt text to ChatGPT by setting it as the value of the first textarea and clicking the next sibling button
+function sendPromptToChatGpt(text) {
   setTimeout(() => {
     const textarea = document.querySelector('textarea');
     if (textarea) {
@@ -83,5 +83,5 @@ function setTextAndClickButton(text) {
 // Handle errors caught by try/catch
 function handleError(error) {
   console.error(error);
-  setTextAndClickButton(`Error occurred: ${error.message}`);
+  sendPromptToChatGpt(`Error occurred: ${error.message}`);
 }
