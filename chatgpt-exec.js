@@ -40,8 +40,12 @@ function sendPromptToChatGpt(text) {
 // Handle errors caught by try/catch
 function handleError(error) {
   console.error(error);
-  const fullErrorMessage = `${error.name}: ${error.message}\n${error.stack}`;
-  sendPromptToChatGpt(`Error occurred:\n${fullErrorMessage}`);
+  if (document.body.innerHTML.lastIndexOf('Error occurred:') < document.body.innerHTML.lastIndexOf('{/exec}')) {
+    const fullErrorMessage = `${error.name}: ${error.message}\n${error.stack}`;
+    sendPromptToChatGpt(`Error occurred:\n${fullErrorMessage}`);    
+  } else {
+    console.log('Error not send to ChatGPT because reasons')
+  }
 }
 
 // Function to check if the button is in the "ready" state
