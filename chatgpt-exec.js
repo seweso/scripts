@@ -3,16 +3,15 @@
 // @description This enables ChatGPT to execute javascript in your browser
 // @match       https://chat.openai.com/*
 // @exclude-match: *://*.*
-// @version 1.1
+// @version 1.3
 // @updateURL https://seweso.github.io/scripts/chatgpt-exec.js
 // ==/UserScript==
-
 
 /*
 
 Only respond to prompts with one block of javascript code in between {exec}{/exec} tags at the end of your reply, do not use code blocks.
 
-First prompt is: Show a funny quote in an alert box. 
+First prompt is: Show a funny quote in an alert box.
 
 */
 
@@ -41,7 +40,8 @@ function sendPromptToChatGpt(text) {
 // Handle errors caught by try/catch
 function handleError(error) {
   console.error(error);
-  sendPromptToChatGpt(`Error occurred: ${error.message}`);
+  const fullErrorMessage = `${error.name}: ${error.message}\n${error.stack}`;
+  sendPromptToChatGpt(`Error occurred:\n${fullErrorMessage}`);
 }
 
 // Function to check if the button is in the "ready" state
